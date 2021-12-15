@@ -25,7 +25,8 @@ import java.util.Map;
 
 public class WeatherFxApp extends Application {
     private final WeatherNetworkInteractor weatherNetworkInteractor = new WeatherNetworkInteractor();
-    private final Font font = Font.font("Courier New", FontWeight.BOLD, 20);
+    private final Font font = Font.font("Arial", FontWeight.BOLD, 20);
+    private final Font labelsFont = Font.font("Arial", FontWeight.NORMAL, 20);
     private String title = "Menu";
     private AnchorPane pane;
     private VBox vBox;
@@ -52,12 +53,47 @@ public class WeatherFxApp extends Application {
         ObservableList<Node> children = vBox.getChildren();
         vBox.getChildren().removeAll(children);
 
-        HBox hBox1 = new HBox(0);
-        Label tempLabel = new Label("Temperature:" + "\t");
-        Label tempResultLabel = new Label(parameters.get("temp"));
-        hBox1.getChildren().add(tempLabel);
-        hBox1.getChildren().add(tempResultLabel);
-        vBox.getChildren().add(hBox1);
+        if (parameters == null) {
+            Label notFoundLabel = new Label("This city is not found!");
+            notFoundLabel.setFont(labelsFont);
+            vBox.getChildren().add(notFoundLabel);
+        } else {
+            Label cityLabel = new Label("City:" + "\t" + parameters.get("name"));
+            cityLabel.setFont(labelsFont);
+            vBox.getChildren().add(cityLabel);
+
+            Label tempLabel = new Label("Temperature:" + "\t" + parameters.get("temp"));
+            tempLabel.setFont(labelsFont);
+            vBox.getChildren().add(tempLabel);
+
+            Label minTempLabel = new Label("Min temperature:" + "\t" + parameters.get("temp_min"));
+            minTempLabel.setFont(labelsFont);
+            vBox.getChildren().add(minTempLabel);
+
+            Label maxTempLabel = new Label("Max temperature:" + "\t" + parameters.get("temp_max"));
+            maxTempLabel.setFont(labelsFont);
+            vBox.getChildren().add(maxTempLabel);
+
+            Label feelsLikeLabel = new Label("Feels like:" + "\t" + parameters.get("feels_like"));
+            feelsLikeLabel.setFont(labelsFont);
+            vBox.getChildren().add(feelsLikeLabel);
+
+            Label descriptionLabel = new Label("Description:" + "\t" + parameters.get("description"));
+            descriptionLabel.setFont(labelsFont);
+            vBox.getChildren().add(descriptionLabel);
+
+            Label pressureLabel = new Label("Pressure:" + "\t" + parameters.get("pressure"));
+            pressureLabel.setFont(labelsFont);
+            vBox.getChildren().add(pressureLabel);
+
+            Label humidityLabel = new Label("Humidity:" + "\t" + parameters.get("humidity"));
+            humidityLabel.setFont(labelsFont);
+            vBox.getChildren().add(humidityLabel);
+
+            Label windSpeedLabel = new Label("Wind speed:" + "\t" + parameters.get("wind_speed"));
+            windSpeedLabel.setFont(labelsFont);
+            vBox.getChildren().add(windSpeedLabel);
+        }
     }
 
     @Override
@@ -81,10 +117,6 @@ public class WeatherFxApp extends Application {
 
         hBox.getChildren().add(findTextField);
         hBox.getChildren().add(findButton);
-//
-//        vBox.getChildren().add(hBox);
-//        vBox.getChildren().add(findTextField);
-//        vBox.getChildren().add(findButton);
 
         AnchorPane.setTopAnchor(hBox, 5.0);
         AnchorPane.setLeftAnchor(hBox, 10.0);
@@ -97,7 +129,7 @@ public class WeatherFxApp extends Application {
         pane.getChildren().add(hBox);
         pane.getChildren().add(vBox);
 
-        Scene scene = new Scene(pane, 280, 300);
+        Scene scene = new Scene(pane, 360, 400);
         stage.setScene(scene);
         stage.show();
     }
