@@ -1,18 +1,14 @@
 package com.kalugin.net.service;
 
-import com.kalugin.net.helper.JsonHelper;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Map;
 
 public class WeatherNetworkService {
     private final static String API_KEY = "50da205a9c76cfaf41a554bc57768910";
     private final static String BASE_URL = "https://api.openweathermap.org/data/2.5/weather?q=";
-    private final static JsonHelper jsonHelper = new JsonHelper();
 
     public String get(String city) throws IOException {
         URL myUrl = new URL(BASE_URL + city + "&appid=" + API_KEY);
